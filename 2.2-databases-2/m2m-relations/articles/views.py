@@ -9,4 +9,9 @@ def articles_list(request):
         'object_list': Article.objects.all().prefetch_related('scopes')
     }
 
+    articles = Article.objects.all()
+    for article in articles:
+        for scope in article.scopes.all():
+            print(scope.tag.name)
+
     return render(request, template, context)
