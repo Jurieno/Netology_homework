@@ -9,8 +9,8 @@ from logistic.serializers import ProductSerializer, StockSerializer
 class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['title','description']
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title','description']
 
 
 class StockViewSet(ModelViewSet):
@@ -18,11 +18,6 @@ class StockViewSet(ModelViewSet):
     serializer_class = StockSerializer
 
     # Основное задание
-    
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['products']
-
-    # Дополнительное задание
-
-    # filter_backends = [filters.SearchFilter]
-    # search_fields = ['products__title', 'products__description']
+    search_fields = ['products__title', 'products__description']
